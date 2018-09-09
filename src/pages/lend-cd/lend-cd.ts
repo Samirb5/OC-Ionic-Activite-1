@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { BookAndCdServices } from './../../sevices/collection.service';
+import { Component, OnInit } from '@angular/core';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { Collection } from '../../models/Collection';
 
 /**
  * Generated class for the LendCdPage page.
@@ -12,13 +14,34 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-lend-cd',
   templateUrl: 'lend-cd.html',
 })
-export class LendCdPage {
+export class LendCdPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  name: string;
+  index: number;
+  cd: Collection;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cdService: BookAndCdServices, public toastCtrl: ToastController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LendCdPage');
+  ngOnInit() {
+    this.index = this.navParams.get('index');
+    this.cd = this.cdService.cdList[this.index] 
+  }
+
+  close() {
+    this.navCtrl.pop();
+  }
+
+  onToggleAppareil(position:string) {
+    this.cd.isLend = !this.cd.isLend;
+    let cdIsLend = this.cd.isLend === true ? 'prêté' : 'rendu'
+    let toast = this.toastCtrl.create({
+      message:`Le Cd \"${this.cd.name}\" est ${cdIsLend}`,
+      duration: 2000,
+      position: position
+    });
+  
+    toast.present(toast);
   }
 
 }

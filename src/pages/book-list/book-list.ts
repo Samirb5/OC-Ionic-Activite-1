@@ -1,7 +1,7 @@
 import { BookAndCdServices } from './../../sevices/collection.service';
 import { LendBookPage } from '../lend-book/lend-book';
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ModalController } from 'ionic-angular';
+import { MenuController, ModalController } from 'ionic-angular';
 import { Collection } from '../../models/Collection';
 
 /**
@@ -21,11 +21,10 @@ export class BookListPage {
 
   bookList: Collection[];
 
-  constructor(public navCtrl: NavController,
-     public navParams: NavParams,
-      public menuCtrl: MenuController,
-       public modalCtrl: ModalController,
-        public bookService: BookAndCdServices) {
+  constructor(
+    public menuCtrl: MenuController,
+    public modalCtrl: ModalController,
+    public bookService: BookAndCdServices) {
   }
 
   ionViewWillEnter() {
@@ -37,7 +36,7 @@ export class BookListPage {
   }
 
   openModal(index: number) {
-    let modal = this.modalCtrl.create(LendBookPage, {index: index});
+    let modal = this.modalCtrl.create(LendBookPage, { index: index });
     modal.present();
   }
 

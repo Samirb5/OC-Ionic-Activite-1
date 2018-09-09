@@ -1,5 +1,8 @@
+import { Collection } from './../../models/Collection';
+import { BookAndCdServices } from './../../sevices/collection.service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { MenuController, ModalController } from 'ionic-angular';
+import { LendCdPage } from '../lend-cd/lend-cd';
 
 /**
  * Generated class for the CdListPage page.
@@ -14,23 +17,22 @@ import { NavController, NavParams, MenuController } from 'ionic-angular';
 })
 export class CdListPage {
 
-  cdList = [
-    {
-      name: 'Le Bruit et la Fureur2'
-    },
-    {
-      name: 'Madame Bovary2'
-    },
-    {
-      name: 'Éducation2'
-    }
-  ];
+  cdList: Collection[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
+  constructor(public menuCtrl: MenuController, public cdServices: BookAndCdServices, public modalCtrl: ModalController) {
+  }
+
+  ionViewWillEnter() {
+    this.cdList = this.cdServices.cdList.slice();
   }
 
   onToggleMenu() {
     this.menuCtrl.open();
+  }
+
+  openModal(index: number) {
+    let modal = this.modalCtrl.create(LendCdPage, { index: index });
+    modal.present();
   }
 
 }

@@ -6,13 +6,32 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>LendCdPage</ion-title>
-  </ion-navbar>
+  <ion-navbar >
+    <ion-buttons right>
+        <button (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+  <ion-title>{{cd.name}}</ion-title>
+</ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content padding> 
+  <ion-card [ngClass]="{'is-lend': cd.isLend, 'is-return': !cd.isLend}">
+    <ion-card-header>{{cd.description}}</ion-card-header>
+  </ion-card>
+    <button 
+      ion-button
+      color="danger"
+      [disabled]="cd.isLend"
+      (click)="onToggleAppareil('top')"
+     >Préter</button>
+    <button
+    ion-button
+    color="secondary"
+    [disabled]="!cd.isLend"
+    (click)="onToggleAppareil('top')"
+    >Rendre</button>
 </ion-content>

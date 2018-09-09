@@ -1,7 +1,7 @@
 import { BookAndCdServices } from './../../sevices/collection.service';
 import { Collection } from './../../models/Collection';
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController, NavController, ToastController } from 'ionic-angular';
+import { NavParams, NavController, ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the LendBookPage page.
@@ -18,40 +18,29 @@ export class LendBookPage implements OnInit {
 
   name: string;
   index: number;
-
   book: Collection;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController, public navCtrl: NavController, public bookService: BookAndCdServices, public toastCtrl: ToastController) {}
+  constructor(public navParams: NavParams, public navCtrl: NavController, public bookService: BookAndCdServices, public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.index = this.navParams.get('index');
-    this.book = this.bookService.bookList[this.index] 
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LendBookPage');
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
+    this.book = this.bookService.bookList[this.index]
   }
 
   close() {
     this.navCtrl.pop();
   }
 
- onToggleAppareil(position:string) {
-  this.book.isLend = !this.book.isLend;
-  let bookIsLend = this.book.isLend === true ? 'prêté' : 'rendu'
-  let toast = this.toastCtrl.create({
-    message:`${this.book.name} est ${bookIsLend}`,
-    duration: 2000,
-    position: position
-  });
+  onToggleAppareil(position: string) {
+    this.book.isLend = !this.book.isLend;
+    let bookIsLend = this.book.isLend === true ? 'prêté' : 'rendu'
+    let toast = this.toastCtrl.create({
+      message: `Le livre \"${this.book.name}\" est ${bookIsLend}`,
+      duration: 2000,
+      position: position
+    });
 
-  toast.present(toast);
-}
-
-
+    toast.present(toast);
+  }
 
 }

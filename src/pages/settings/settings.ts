@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 
 /**
@@ -15,18 +15,13 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController, public navParams: NavParams) {
+  constructor(public menuCtrl: MenuController) {
   }
 
   tabsPage = TabsPage;
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
-  }
 
   onToggleMenu() {
     this.menuCtrl.open();
   }
 
- 
 }
